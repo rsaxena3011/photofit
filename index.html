@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#faf8f4">
+<meta name="description" content="PhotoFit is a free offline image tool in one HTML file. Resize, crop, rotate, compress to a file-size target, and save a batch of photos.">
+<title>PhotoFit - Make every photo fit</title>
+<style>
+:root{--paper:#faf8f4;--white:#fff;--ink:#172a3a;--muted:#68717d;--purple:#6554c0;--purple-dark:#51429f;--pale:#eeebfa;--lime:#dbef8a;--line:#e4e4e9;--good:#27634d;--warn:#8a5609;--danger:#b5413a;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);font-size:14px;line-height:1.5}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.48}button,input,select,a{-webkit-tap-highlight-color:transparent}a{color:var(--purple)}button{color:inherit}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:3px solid #9384e0;outline-offset:3px}[hidden]{display:none!important}.icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.shell{max-width:1360px;margin:0 auto;padding:0 34px}.topbar{min-height:88px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:25px;letter-spacing:-1px}.brand-mark{display:grid;place-items:center;width:39px;height:39px;border-radius:12px;background:var(--purple);color:white;position:relative}.brand-mark:after{content:"";position:absolute;width:9px;height:9px;background:var(--lime);border:3px solid var(--paper);border-radius:50%;right:-4px;top:-3px}.brand-mark .icon{width:24px;height:24px}.top-actions{display:flex;align-items:center;gap:18px}.local-pill{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:12px}.local-pill .icon{width:15px;height:15px}.button{min-height:40px;border:1px solid var(--line);border-radius:10px;padding:9px 14px;background:var(--white);font-size:13px;font-weight:650;display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;transition:background .15s,transform .15s}.button:hover:enabled{background:#f5f3fc}.button.primary{background:var(--purple);color:white;border-color:var(--purple)}.button.primary:hover:enabled{background:var(--purple-dark)}.button.quiet{background:transparent;border-color:transparent}.button.small{min-height:34px;padding:7px 10px;font-size:12px}.button.lime{background:var(--lime);border-color:var(--lime);color:var(--ink)}.button .icon{width:17px;height:17px}.icon-button{border:0;background:transparent;border-radius:8px;width:34px;height:34px;display:grid;place-items:center;color:var(--muted);flex-shrink:0}.icon-button:hover:enabled{background:var(--pale);color:var(--purple)}.hero{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:35px 0 29px}.eyebrow{margin:0 0 9px;font-size:10px;letter-spacing:.16em;font-weight:750;color:var(--purple)}h1{font-size:38px;line-height:1.13;letter-spacing:-1.65px;margin:0 0 10px;font-weight:770}.subtitle{margin:0;font-size:14px;color:var(--muted)}.hero-aside{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:9px}.hero-aside .icon{color:var(--purple)}.app-grid{display:grid;grid-template-columns:286px minmax(0,1fr);gap:21px;align-items:start;padding-bottom:24px}.settings{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden}.section-head{padding:19px 20px 15px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}.step{display:grid;place-items:center;width:23px;height:23px;background:var(--pale);border-radius:7px;font-size:10px;font-weight:750;color:var(--purple)}h2{font-size:15px;letter-spacing:-.25px;margin:0}.settings fieldset{border:0;margin:0;padding:17px 20px 0;min-width:0}.field{margin:0 0 17px}.field>label,.field-label{display:block;font-size:12px;font-weight:700;margin:0 0 7px}.field-help{font-size:11px;color:var(--muted);margin:7px 0 0;line-height:1.5}select,input[type=number]{width:100%;min-height:40px;border:1px solid #dcdde4;border-radius:9px;background:white;color:var(--ink);padding:8px 10px;outline-offset:2px}input[type=number]{min-width:0}.segment{display:flex;gap:5px;border:0;margin:0;padding:0}.segment button{flex:1;min-height:37px;border-radius:9px;background:#f5f4f8;border:1px solid transparent;font-size:12px;font-weight:650;padding:8px 5px}.segment button[aria-pressed=true]{background:var(--pale);border-color:#c5baed;color:var(--purple)}.target-pills{display:flex;gap:5px;flex-wrap:wrap}.target-pills button{flex:1;min-width:44px;padding:7px 3px;border:1px solid var(--line);background:white;border-radius:7px;font-size:11px}.target-pills button[aria-pressed=true]{background:var(--pale);border-color:#c5baed;color:var(--purple);font-weight:700}.unit-input{position:relative}.unit-input input{padding-right:40px}.unit-input>span{position:absolute;right:12px;top:11px;font-size:12px;color:var(--muted);pointer-events:none}.inline-two{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}.inline-two label{display:block;font-size:10px;color:var(--muted);margin:0 0 4px}.check{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--muted);line-height:1.45;margin-top:10px;cursor:pointer}.check input{accent-color:var(--purple);margin:2px 0 0;flex-shrink:0}.range-head{display:flex;justify-content:space-between;font-size:12px;font-weight:700}.range-head output{color:var(--purple);font-variant-numeric:tabular-nums}input[type=range]{width:100%;accent-color:var(--purple);margin:11px 0 0;cursor:pointer}.quality-auto{font-size:11px;color:var(--purple);background:#f5f3fc;border-radius:7px;padding:8px 10px;margin-top:0}.color-row{display:flex;align-items:center;justify-content:space-between;gap:10px}.color-row label{font-size:11px;color:var(--muted)}input[type=color]{width:37px;height:28px;border:1px solid var(--line);padding:2px;background:white;border-radius:6px;cursor:pointer}.settings-footer{padding:4px 20px 18px}.settings-footer .button{width:100%;min-height:45px}.settings-footer>p{font-size:10px;text-align:center;color:var(--muted);margin:9px 0 0}.workspace{min-width:0}.upload{border:1.5px dashed #cfc9df;border-radius:14px;background:#f2eff9;padding:22px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:background .15s,border-color .15s}.upload.dragover{background:#e8e1fc;border-color:var(--purple)}.upload-mark{width:48px;height:48px;background:white;border:1px solid #e3dcf1;box-shadow:0 3px 0 #ded6ee;border-radius:13px;display:grid;place-items:center;color:var(--purple);flex-shrink:0}.upload-mark .icon{width:24px;height:24px}.upload-copy{min-width:0;flex:1}.upload-copy strong{display:block;font-size:14px;margin-bottom:3px}.upload-copy p{font-size:11px;color:var(--muted);margin:0}.upload .button{pointer-events:none}.notice{margin-top:12px;border:1px solid #e9cf9f;border-radius:10px;background:#fff7e9;color:#765015;padding:11px 14px;font-size:12px;white-space:pre-line}.editor{margin-top:17px;background:white;border:1px solid var(--line);border-radius:16px;overflow:hidden;min-height:390px}.editor-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}.editor-heading{min-width:0}.editor-heading h2{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:420px}.editor-heading p{font-size:10px;color:var(--muted);margin:2px 0 0}.editor-tools{display:flex;gap:4px;align-items:center}.editor-tools .divider{height:20px;width:1px;background:var(--line);margin:0 4px}.empty{min-height:340px;padding:40px 20px;display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;background:radial-gradient(ellipse at 50% 48%,#f8f6fc,white 65%)}.empty-art{width:116px;height:99px;position:relative;margin-bottom:24px}.photo-card{width:86px;height:70px;position:absolute;left:15px;top:12px;background:#eee9fa;border:6px solid white;border-radius:10px;box-shadow:0 7px 25px #49387518;transform:rotate(-9deg);overflow:hidden}.photo-card:before{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:var(--lime);top:10px;right:12px}.photo-card:after{content:"";position:absolute;width:70px;height:50px;background:#bfb2e7;transform:rotate(36deg);left:-8px;top:38px}.empty-art>.icon{position:absolute;width:58px;height:58px;right:-2px;bottom:0;color:var(--purple);filter:drop-shadow(0 2px 0 white);stroke-width:1.4}.empty h3{margin:0 0 6px;font-size:19px;letter-spacing:-.45px}.empty p{margin:0;color:var(--muted);font-size:12px;max-width:320px}.compare{display:grid;grid-template-columns:1fr 1fr}.preview-panel{min-width:0}.preview-panel+.preview-panel{border-left:1px solid var(--line)}.preview-label{display:flex;align-items:center;justify-content:space-between;padding:14px 17px 10px;font-size:10px;letter-spacing:.08em;font-weight:750;color:var(--muted)}.label-chip{font-size:9px;letter-spacing:0;font-weight:650;border:1px solid var(--line);border-radius:5px;padding:2px 5px}.label-chip.good{background:#edf6ef;border-color:#d9eadc;color:var(--good)}.label-chip.warn{background:#fff5e4;border-color:#f0dab5;color:var(--warn)}.preview-image{height:280px;margin:0 15px;position:relative;display:flex;align-items:center;justify-content:center;border-radius:8px;overflow:hidden;background-color:#f5f5f6;background-image:linear-gradient(45deg,#e9e9ec 25%,transparent 25%),linear-gradient(-45deg,#e9e9ec 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e9e9ec 75%),linear-gradient(-45deg,transparent 75%,#e9e9ec 75%);background-size:16px 16px;background-position:0 0,0 8px,8px -8px,-8px 0}.preview-image img{width:100%;height:100%;object-fit:contain}.output-placeholder{position:absolute;inset:0;display:grid;place-content:center;text-align:center;background:#f6f5f9;color:var(--muted);padding:20px;font-size:12px}.output-placeholder .icon{width:30px;height:30px;margin:0 auto 12px;color:#9b90bb}.preview-stats{padding:13px 17px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.preview-stats strong{display:block;font-size:14px;font-variant-numeric:tabular-nums}.preview-stats p{font-size:10px;margin:3px 0 0;color:var(--muted)}.preview-stats .button{margin-top:1px}.result-note{margin:0 15px 14px;font-size:11px;color:var(--muted)}.result-note.warning{color:var(--warn)}.batch{margin-top:17px;background:white;border:1px solid var(--line);border-radius:14px;padding:15px 17px}.batch-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.batch-head h2{font-size:13px}.batch-head h2 span{color:var(--muted);font-weight:500;margin-left:5px}.batch-head .button{padding:3px 6px;min-height:26px;font-size:11px}.image-list{display:flex;gap:9px;overflow:auto;padding:2px 2px 8px;max-height:142px}.image-item{position:relative;width:117px;flex-shrink:0;border:1px solid var(--line);border-radius:10px;background:white;overflow:hidden;display:flex;flex-direction:column}.image-item.selected{border-color:var(--purple);box-shadow:0 0 0 1px var(--purple)}.image-choice{border:0;background:white;text-align:left;padding:7px;width:100%;min-width:0}.image-choice img{width:100%;height:53px;object-fit:contain;display:block;background:#f5f4f8;border-radius:5px;margin-bottom:6px}.image-choice .name{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.item-state{font-size:9px;padding:0 7px 7px;color:var(--muted)}.item-state.good{color:var(--good)}.item-state.warn{color:var(--warn)}.item-state.error{color:var(--danger)}.remove-image{position:absolute;right:3px;top:3px;width:21px;height:21px;background:#fffffff0;border:1px solid var(--line);border-radius:6px;padding:2px;display:grid;place-items:center;color:var(--muted)}.remove-image .icon{width:12px;height:12px}.batch-footer{border-top:1px solid var(--line);margin-top:7px;padding-top:13px;display:flex;align-items:center;justify-content:space-between;gap:12px}.batch-summary{font-size:11px;color:var(--muted)}.batch-summary strong{color:var(--ink)}.progress-line{margin-top:12px;display:flex;align-items:center;gap:10px}.progress-line progress{flex:1;height:6px;accent-color:var(--purple)}.progress-line .button{font-size:11px;min-height:29px;padding:4px 9px}.footer{display:flex;justify-content:space-between;gap:16px;padding:0 0 24px;color:var(--muted);font-size:10px}.footer span{display:flex;align-items:center;gap:5px}.footer .icon{width:13px;height:13px}.error-inline{color:var(--danger);font-size:11px;margin:0 0 12px}.toast{position:fixed;bottom:23px;left:50%;transform:translateX(-50%);background:var(--ink);color:white;padding:12px 17px;border-radius:11px;box-shadow:0 8px 32px #172a3a30;max-width:min(90vw,620px);font-size:12px;z-index:99;display:flex;align-items:center;gap:13px}.toast button{color:white}.toast .icon{width:16px;height:16px}dialog{color:var(--ink);border:1px solid var(--line);border-radius:19px;box-shadow:0 25px 100px #172a3a35;width:min(600px,calc(100vw - 30px));max-height:90vh;padding:0;background:white}dialog::backdrop{background:#18233377;backdrop-filter:blur(3px)}.dialog-head{display:flex;justify-content:space-between;align-items:center;padding:19px 22px;border-bottom:1px solid var(--line)}.dialog-head h2{font-size:18px}.dialog-body{padding:20px 23px 24px;font-size:13px;color:var(--muted)}.dialog-body h3{color:var(--ink);font-size:14px;margin:22px 0 7px}.dialog-body h3:first-child{margin-top:0}.dialog-body p{margin:8px 0}.dialog-body ol{padding-left:20px}.dialog-body li{margin-bottom:7px}.help-box{background:var(--pale);padding:11px 14px;border-radius:10px;color:#51487b;margin:17px 0}.dialog-body details{border-top:1px solid var(--line);margin-top:20px;padding-top:15px;font-size:11px}.dialog-body summary{cursor:pointer;font-weight:650;color:var(--ink)}.crop-dialog{width:min(880px,calc(100vw - 30px))}.crop-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:15px 20px 10px}.crop-controls label{font-size:12px;font-weight:650}.crop-controls select{width:auto;min-height:34px;padding:6px 9px;font-size:12px}.crop-controls p{font-size:11px;color:var(--muted);margin:0 0 0 auto}.crop-holder{padding:10px 20px;display:flex;justify-content:center;align-items:center;background:#f5f4f8;min-height:100px}.crop-stage{position:relative;max-width:100%;overflow:hidden;touch-action:none;line-height:0;user-select:none}.crop-stage canvas{display:block;width:100%;height:auto}.crop-box{position:absolute;border:2px solid white;box-shadow:0 0 0 2000px #172a3a99;cursor:move;touch-action:none}.crop-box:before,.crop-box:after{content:"";position:absolute;pointer-events:none;inset:33.333% 0;border-top:1px solid #ffffff66;border-bottom:1px solid #ffffff66}.crop-box:after{inset:0 33.333%;border:0;border-left:1px solid #ffffff66;border-right:1px solid #ffffff66}.crop-handle{position:absolute;width:15px;height:15px;background:var(--lime);border:2px solid white;border-radius:3px;z-index:2}.crop-handle[data-corner=nw]{left:-8px;top:-8px;cursor:nwse-resize}.crop-handle[data-corner=ne]{right:-8px;top:-8px;cursor:nesw-resize}.crop-handle[data-corner=sw]{left:-8px;bottom:-8px;cursor:nesw-resize}.crop-handle[data-corner=se]{right:-8px;bottom:-8px;cursor:nwse-resize}.crop-values{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;padding:12px 20px}.crop-values label{display:block;font-size:10px;color:var(--muted);margin-bottom:4px}.crop-values input{min-height:35px;padding:6px 8px;font-size:12px}.dialog-actions{padding:14px 20px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}.dialog-actions .right{display:flex;gap:8px}noscript{display:block;padding:15px;background:#fff0df;color:#7a4b10;text-align:center}
+@media(min-width:1200px){.preview-image{height:330px}}@media(max-width:1000px){.shell{padding:0 22px}.app-grid{grid-template-columns:255px minmax(0,1fr);gap:15px}.settings fieldset,.settings-footer{padding-left:16px;padding-right:16px}.upload{padding:17px;gap:11px}.upload .button{display:none}.preview-image{height:240px;margin:0 10px}.preview-stats{padding:12px 11px;flex-wrap:wrap}.editor-heading h2{max-width:210px}.hero-aside{display:none}.editor-tools .button{padding:7px 9px}}
+@media(max-width:730px){.shell{padding:0 16px}.topbar{min-height:75px}.brand{font-size:23px}.top-actions{gap:5px}.local-pill{font-size:0;gap:0}.local-pill .icon{width:18px;height:18px}.hero{padding:27px 0 23px}h1{font-size:32px}.subtitle{font-size:13px;max-width:330px}.app-grid{display:flex;flex-direction:column;gap:16px}.workspace{width:100%;order:0}.settings{width:100%;order:1}.settings fieldset{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;padding-top:18px}.settings-footer{padding-top:2px}.section-head{padding:15px 16px}.editor{min-height:300px}.empty{min-height:270px}.preview-image{height:225px}.upload-copy p{font-size:10px}.editor-heading h2{max-width:190px}.editor-head{padding:12px}.editor-tools{gap:1px}.editor-tools .icon-button{width:29px}.editor-tools .divider{margin:0 2px}.editor-heading p{max-width:180px}.footer{font-size:10px;flex-wrap:wrap}.batch-summary{font-size:10px}.crop-controls p{width:100%;margin:0}.dialog-body{padding:18px}.hero .eyebrow{font-size:9px}}
+@media(max-width:430px){.settings fieldset{grid-template-columns:1fr}.preview-image{height:180px}.preview-label{padding:12px 11px 8px;font-size:9px}.editor-heading h2{max-width:140px}.editor-tools .button{font-size:11px;padding:6px}.editor-tools .divider{display:none}.editor-tools .icon-button{width:27px}.preview-stats strong{font-size:13px}.batch-footer{align-items:stretch;flex-direction:column}.batch-footer .button{width:100%}.crop-values{gap:6px;padding:12px}.crop-values input{padding:5px;font-size:11px}.dialog-actions{padding:12px}.top-actions .button{font-size:12px;padding:8px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-crop" viewBox="0 0 24 24"><path d="M6 3v12a3 3 0 0 0 3 3h12M3 6h12a3 3 0 0 1 3 3v12"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v13m-5-5 5 5 5-5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6z"/><path d="m8 12 3 3 5-6"/></symbol><symbol id="i-left" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 2 9M3 4v6h6"/></symbol><symbol id="i-right" viewBox="0 0 24 24"><path d="M21 10a9 9 0 1 0-2 9m0-15v6h-6"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.4"/><path d="m3 17 5-5 4 4 3-3 6 6"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol><symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 1 1 5.4 1c-.7 1.3-2.6 1.5-2.6 3m0 4h.01"/></symbol><symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/></symbol></svg>
+<noscript>PhotoFit needs JavaScript enabled in your browser to edit images. All processing happens on your device.</noscript>
+<div class="shell">
+<header class="topbar"><div class="brand"><span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-crop"/></svg></span>PhotoFit</div><div class="top-actions"><span class="local-pill"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>On your device</span><button class="button quiet" id="helpButton"><svg class="icon" aria-hidden="true"><use href="#i-help"/></svg>Quick guide</button></div></header>
+<section class="hero"><div><p class="eyebrow">SMALLER FILES. MORE POSSIBILITIES.</p><h1>Make every photo fit.</h1><p class="subtitle">Resize, crop and compress. The right size, without the guesswork.</p></div><div class="hero-aside"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Free. Offline. All yours.</div></section>
+<main class="app-grid">
+<aside class="settings" aria-label="Output settings"><div class="section-head"><span class="step">01</span><h2>Choose your output</h2></div>
+<fieldset id="settingsFields"><legend class="sr-only">Settings for all images</legend>
+<div class="field"><span class="field-label" id="formatLabel">File format</span><div class="segment" role="group" aria-labelledby="formatLabel"><button type="button" data-format="image/jpeg" aria-pressed="true">JPG</button><button type="button" data-format="image/png" aria-pressed="false">PNG</button><button type="button" data-format="image/webp" aria-pressed="false" id="webpButton">WebP</button></div><p class="field-help" id="formatHelp">Small files for photos. Uses a solid background.</p></div>
+<div class="field"><span class="field-label" id="targetLabel">File-size limit</span><div class="target-pills" role="group" aria-labelledby="targetLabel"><button data-target="0" aria-pressed="false">None</button><button data-target="50" aria-pressed="false">50 KB</button><button data-target="100" aria-pressed="false">100 KB</button><button data-target="200" aria-pressed="true">200 KB</button><button data-target="custom" aria-pressed="false">Custom</button></div><div class="unit-input" id="customTargetWrap" style="margin-top:9px" hidden><label for="customTarget" class="sr-only">Custom file-size limit in KB</label><input id="customTarget" type="number" min="1" max="50000" step="1" value="200" inputmode="numeric"><span>KB</span></div><label class="check" id="downscaleWrap"><input id="allowDownscale" type="checkbox" checked><span>Allow smaller dimensions to meet the limit.</span></label><p class="field-help" id="targetHelp">1 KB = 1,000 bytes. Actual size is checked after export.</p></div>
+<div class="field"><label for="resizeMode">Image dimensions</label><select id="resizeMode"><option value="original">Keep size (up to 16 MP)</option><option value="longest">Set longest edge</option><option value="width">Set width</option><option value="height">Set height</option><option value="box">Fit within a box</option></select><div class="unit-input" id="singleDimension" style="margin-top:9px" hidden><label for="dimensionValue" class="sr-only">Size in pixels</label><input id="dimensionValue" type="number" min="1" max="8192" step="1" value="1600" inputmode="numeric"><span>px</span></div><div class="inline-two" id="boxDimensions" hidden><div><label for="boxWidth">Width (px)</label><input id="boxWidth" type="number" min="1" max="8192" step="1" value="600" inputmode="numeric"></div><div><label for="boxHeight">Height (px)</label><input id="boxHeight" type="number" min="1" max="8192" step="1" value="600" inputmode="numeric"></div></div><label class="check" id="upscaleWrap" hidden><input id="allowUpscale" type="checkbox"><span>Allow enlarging smaller images.</span></label><p class="field-help">Keeps proportions. For an exact square, crop to 1:1, then set the width.</p></div>
+<div class="field" id="qualityField"><div class="range-head"><label for="quality">Image quality</label><output id="qualityValue" for="quality">90%</output></div><input id="quality" type="range" min="10" max="100" value="90" step="1"><p id="qualityAuto" class="quality-auto">Quality adjusts automatically to fit your limit.</p></div>
+<div class="field" id="backgroundField"><div class="color-row"><label for="background">JPG background</label><input id="background" type="color" value="#ffffff"></div></div>
+</fieldset><div class="settings-footer"><p id="settingsError" class="error-inline" role="alert" hidden></p><button class="button primary" id="processButton" disabled><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg><span id="processText">Add photos to start</span></button><p>Settings apply to every photo in this batch.</p></div></aside>
+<section class="workspace" aria-label="Photo workspace">
+<div class="upload" id="dropZone" role="button" tabindex="0" aria-label="Choose photos or drop JPG, PNG, or WebP images here"><div class="upload-mark"><svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg></div><div class="upload-copy"><strong>Drop your photos here</strong><p>JPG, PNG or WebP · up to 50 photos · or paste an image</p></div><span class="button">Choose photos</span></div><input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" multiple hidden>
+<div id="uploadNotice" class="notice" role="status" hidden></div>
+<section class="editor" aria-label="Before and after preview"><div class="editor-head"><div class="editor-heading"><h2 id="activeName">Your photo workspace</h2><p id="activeSub">Your originals stay untouched.</p></div><div id="editTools" class="editor-tools" hidden><button id="cropButton" class="button small"><svg class="icon" aria-hidden="true"><use href="#i-crop"/></svg>Crop</button><span class="divider"></span><button id="rotateLeft" class="icon-button" aria-label="Rotate selected photo left" title="Rotate left"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button><button id="rotateRight" class="icon-button" aria-label="Rotate selected photo right" title="Rotate right"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button><button id="resetEdits" class="icon-button" aria-label="Reset crop and rotation" title="Reset crop and rotation"><svg class="icon" aria-hidden="true"><use href="#i-reset"/></svg></button></div></div>
+<div class="empty" id="emptyState"><div class="empty-art" aria-hidden="true"><div class="photo-card"></div><svg class="icon"><use href="#i-crop"/></svg></div><h3>A little adjustment. A perfect fit.</h3><p>Add a photo to compare the original with your finished image, right here.</p></div>
+<div id="compareArea" class="compare" hidden><article class="preview-panel"><div class="preview-label">ORIGINAL<span class="label-chip" id="originalType">JPG</span></div><div class="preview-image"><img id="originalPreview" alt="Original photo" draggable="false"></div><div class="preview-stats"><div><strong id="originalSize">-</strong><p id="originalDimensions">-</p></div></div></article><article class="preview-panel"><div class="preview-label">PHOTOFIT<span class="label-chip" id="resultBadge">Not processed</span></div><div class="preview-image"><img id="resultPreview" alt="Processed photo" draggable="false" hidden><div id="resultPlaceholder" class="output-placeholder"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg><span id="placeholderText">Choose your settings,<br>then process your photos.</span></div></div><div class="preview-stats"><div><strong id="resultSize">-</strong><p id="resultDimensions">Your result will appear here</p></div><button id="saveOne" class="button small" disabled><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Save</button></div><p class="result-note" id="resultNote" hidden></p></article></div></section>
+<section id="batchSection" class="batch" hidden><div class="batch-head"><h2>Your photos <span id="batchCount"></span></h2><button class="button quiet" id="clearButton">Clear batch</button></div><div class="image-list" id="imageList" aria-label="Photos in this batch"></div><div class="batch-footer"><div class="batch-summary" id="batchSummary">Ready when you are.</div><button id="saveAll" class="button lime" disabled><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg><span id="saveAllText">Save batch as ZIP</span></button></div><div class="progress-line" id="progressLine" hidden><progress id="batchProgress" max="1" value="0" aria-label="Batch progress"></progress><button id="cancelButton" class="button small">Stop</button></div></section>
+</section>
+</main><footer class="footer"><span><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>Your photos are processed here. They are never uploaded.</span><span>PhotoFit 1.0 · Free &amp; open source</span></footer>
+</div>
+<dialog id="helpDialog" aria-labelledby="helpTitle"><div class="dialog-head"><h2 id="helpTitle">A quick guide to PhotoFit</h2><button class="icon-button" data-close="helpDialog" aria-label="Close guide"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><div class="dialog-body"><h3>Three steps, and you're done</h3><ol><li><strong>Add photos.</strong> Choose, drop, or paste JPG, PNG, or still WebP images.</li><li><strong>Choose your output.</strong> Set a file format, size limit, and dimensions. Crop or rotate individual photos if needed.</li><li><strong>Process and save.</strong> Check the before-and-after preview. Save one image or all finished images as a ZIP.</li></ol><h3>Need an exact size, like 600 × 600?</h3><p>Crop to <strong>1:1 square</strong>, set <strong>Image dimensions → Set width → 600</strong>, enable enlarging if your crop is smaller, and turn off <strong>Allow smaller dimensions to meet the limit</strong>. PhotoFit reports when the chosen size cannot meet a file-size limit.</p><h3>How file-size limits work</h3><p>PhotoFit checks the actual encoded file size. For JPG and WebP it tries different quality settings. PNG uses lossless encoding, so reducing its file size may require smaller dimensions. With the smaller-dimensions option enabled, PhotoFit can shrink an image further. If a target cannot be met, the output is clearly marked <strong>Over limit</strong>.</p><p>Limits use decimal KB: 100 KB means 100,000 bytes. Extra upload-site requirements, such as subject framing or file format, still apply.</p><h3>Your originals and privacy</h3><p>PhotoFit creates new copies and never changes the original files. It runs offline from this HTML file and makes no network requests. Photos and results stay in this tab's memory; save your results before closing or reloading.</p><div class="help-box">JPG fills transparent areas with the chosen background color. PNG and WebP keep transparency where the browser encoder supports it.</div><h3>Supported images and practical limits</h3><p>Use a modern browser. Input is limited to 50 still JPG, PNG, or WebP files per batch, 50 MB per file and 64 megapixels per image. GIF, HEIC, SVG, PDF, and animated PNG/WebP are not supported. Exports are capped at 8,192 pixels per side and 16 megapixels; large originals may be reduced. A combined ZIP is limited to 250 MB; larger batches can be saved individually.</p><p>WebP export is enabled only if this browser supports it. Re-encoding changes file metadata and can change color appearance; retain your originals for archival use. This is a screen/pixel-size tool, not a print-DPI editor.</p><h3>Editing and downloads</h3><p>In Crop, drag the selection or its corner handles. The numeric fields also work with the keyboard. Crops and rotation belong to each image; output settings apply to the whole batch. Changed settings clear old results, so process again before saving.</p><p>If a download preview blocks editing or saving, extract the ZIP and open <strong>index.html</strong> directly in your browser. Download locations are controlled by your browser.</p><details><summary>MIT license · PhotoFit 1.0</summary><p>Copyright (c) 2026 the contributors to PhotoFit</p><p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p><p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p><p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p></details><button class="button primary" data-close="helpDialog" style="width:100%;margin-top:20px">Got it</button></div></dialog>
+<dialog id="cropDialog" class="crop-dialog" aria-labelledby="cropTitle"><div class="dialog-head"><h2 id="cropTitle">Crop your photo</h2><button class="icon-button" data-close="cropDialog" aria-label="Cancel crop"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><div class="crop-controls"><label for="cropRatio">Shape</label><select id="cropRatio"><option value="0">Free crop</option><option value="1">1:1 square</option><option value="1.3333333333333333">4:3</option><option value="1.5">3:2</option><option value="1.7777777777777777">16:9</option><option value="0.5625">9:16 portrait</option></select><p>Drag the crop or a corner. Arrow keys work in the fields below.</p></div><div class="crop-holder"><div class="crop-stage" id="cropStage"><canvas id="cropCanvas" aria-label="Crop preview"></canvas><div id="cropBox" class="crop-box"><span class="crop-handle" data-corner="nw"></span><span class="crop-handle" data-corner="ne"></span><span class="crop-handle" data-corner="sw"></span><span class="crop-handle" data-corner="se"></span></div></div></div><div class="crop-values"><div><label for="cropX">Left (px)</label><input id="cropX" type="number" min="0" step="1"></div><div><label for="cropY">Top (px)</label><input id="cropY" type="number" min="0" step="1"></div><div><label for="cropW">Width (px)</label><input id="cropW" type="number" min="1" step="1"></div><div><label for="cropH">Height (px)</label><input id="cropH" type="number" min="1" step="1"></div></div><div class="dialog-actions"><button class="button quiet" id="cropReset">Full image</button><div class="right"><button class="button" data-close="cropDialog">Cancel</button><button class="button primary" id="cropApply">Apply crop</button></div></div></dialog>
+<dialog id="clearDialog" aria-labelledby="clearTitle"><div class="dialog-head"><h2 id="clearTitle">Clear this batch?</h2><button class="icon-button" data-close="clearDialog" aria-label="Cancel"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><div class="dialog-body"><p>Unsaved results and edits in this tab will be removed. Your original files stay on your device.</p><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:20px"><button class="button" data-close="clearDialog">Keep batch</button><button class="button primary" id="confirmClear">Clear batch</button></div></div></dialog>
+<div class="toast" id="toast" hidden><span id="toastText" role="status" aria-live="polite"></span><button id="dismissToast" class="icon-button" aria-label="Dismiss message"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div>
+<script id="photofit-core">
+'use strict';
+globalThis.PhotoFitCore=(()=>{
+ const MAX_EDGE=8192,MAX_PIXELS=16000000,MAX_INPUT_PIXELS=64000000,MAX_FILE_BYTES=50000000,MAX_ZIP_BYTES=250000000;
+ const FORMATS={'image/jpeg':{name:'JPG',ext:'jpg'},'image/png':{name:'PNG',ext:'png'},'image/webp':{name:'WebP',ext:'webp'}};
+ const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+ const bytes=n=>n<1000?Math.round(n)+' B':n<1000000?(n/1000).toLocaleString(undefined,{maximumFractionDigits:1})+' KB':(n/1000000).toLocaleString(undefined,{maximumFractionDigits:2})+' MB';
+ const normalizeRotation=n=>((n%360)+360)%360;
+ function orientedSize(w,h,rotation){return normalizeRotation(rotation)%180?{w:h,h:w}:{w,h};}
+ function rect(r,w,h){const x=clamp(Math.round(Number(r.x)||0),0,w-1),y=clamp(Math.round(Number(r.y)||0),0,h-1);return {x,y,w:clamp(Math.round(Number(r.w)||w),1,w-x),h:clamp(Math.round(Number(r.h)||h),1,h-y)};}
+ function rotateCrop(crop,w,h,direction){return direction===90?{x:h-crop.y-crop.h,y:crop.x,w:crop.h,h:crop.w}:{x:crop.y,y:w-crop.x-crop.w,w:crop.h,h:crop.w};}
+ function centeredCrop(w,h,ratio){if(!ratio)return {x:0,y:0,w,h};let cw=w,ch=w/ratio;if(ch>h){ch=h;cw=h*ratio;}return rect({x:(w-cw)/2,y:(h-ch)/2,w:cw,h:ch},w,h);}
+ function resizeCrop(corner,start,p,bounds,ratio){
+  const west=corner.includes('w'),north=corner.includes('n'),ax=west?start.x+start.w:start.x,ay=north?start.y+start.h:start.y;
+  const maxW=west?ax:bounds.w-ax,maxH=north?ay:bounds.h-ay;
+  let w=clamp(west?ax-p.x:p.x-ax,1,maxW),h=clamp(north?ay-p.y:p.y-ay,1,maxH);
+  if(ratio>0){w=Math.min(Math.max(w,h*ratio),maxW,maxH*ratio);h=w/ratio;}
+  return rect({x:west?ax-w:ax,y:north?ay-h:ay,w,h},bounds.w,bounds.h);
+ }
+ function number(value,label,min,max){const n=Number(value);if(!Number.isFinite(n)||!Number.isInteger(n)||n<min||n>max)throw new Error(label+' must be a whole number from '+min.toLocaleString()+' to '+max.toLocaleString()+'.');return n;}
+ function validateOptions(o){
+  if(!FORMATS[o.type])throw new Error('Choose JPG, PNG, or WebP.');
+  if(!['original','longest','width','height','box'].includes(o.mode))throw new Error('Choose a valid image size.');
+  if(o.mode==='box'){number(o.width,'Width',1,MAX_EDGE);number(o.height,'Height',1,MAX_EDGE);}
+  else if(o.mode!=='original')number(o.dimension,'Dimension',1,MAX_EDGE);
+  number(o.targetKB,'File-size limit',0,50000);
+  if(!Number.isFinite(o.quality)||o.quality<.1||o.quality>1)throw new Error('Choose an image quality from 10 to 100.');
+  if(!/^#[a-f0-9]{6}$/i.test(o.background))throw new Error('Choose a valid JPG background color.');
+  return o;
+ }
+ function dimensions(w,h,o){
+  validateOptions(o);let scale=1;
+  if(o.mode==='longest')scale=o.dimension/Math.max(w,h);
+  if(o.mode==='width')scale=o.dimension/w;
+  if(o.mode==='height')scale=o.dimension/h;
+  if(o.mode==='box')scale=Math.min(o.width/w,o.height/h);
+  if(!o.upscale)scale=Math.min(1,scale);
+  const wantedW=Math.max(1,Math.round(w*scale)),wantedH=Math.max(1,Math.round(h*scale));
+  const cap=Math.min(1,MAX_EDGE/wantedW,MAX_EDGE/wantedH,Math.sqrt(MAX_PIXELS/(wantedW*wantedH)));
+  return {w:Math.max(1,Math.floor(wantedW*cap)),h:Math.max(1,Math.floor(wantedH*cap)),limited:cap<1};
+ }
+ function draw(ctx,image,edit,outW,outH,background=null){
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,outW,outH);
+  if(background){ctx.fillStyle=background;ctx.fillRect(0,0,outW,outH);}
+  const c=edit.crop,rot=normalizeRotation(edit.rotation),w=image.width,h=image.height;
+  ctx.imageSmoothingEnabled=outW!==c.w||outH!==c.h;ctx.imageSmoothingQuality='high';
+  let sx=c.x,sy=c.y,sw=c.w,sh=c.h,dw=outW,dh=outH;
+  if(rot===90){sx=c.y;sy=h-c.x-c.w;sw=c.h;sh=c.w;ctx.translate(outW,0);ctx.rotate(Math.PI/2);dw=outH;dh=outW;}
+  else if(rot===180){sx=w-c.x-c.w;sy=h-c.y-c.h;ctx.translate(outW,outH);ctx.rotate(Math.PI);}
+  else if(rot===270){sx=w-c.y-c.h;sy=c.x;sw=c.h;sh=c.w;ctx.translate(0,outH);ctx.rotate(Math.PI*1.5);dw=outH;dh=outW;}
+  ctx.drawImage(image,sx,sy,sw,sh,0,0,dw,dh);ctx.restore();
+ }
+ function cancelIf(check){if(check?.()){const e=new Error('Processing stopped.');e.name='AbortError';throw e;}}
+ async function optimize(w,h,o,encode,isCancelled=()=>false){
+  validateOptions(o);const target=o.targetKB*1000,initial={w,h},high=o.targetKB ? .94 : o.quality,lossy=o.type!=='image/png';
+  let attempts=0,last=null;
+  async function run(q){cancelIf(isCancelled);const blob=await encode(w,h,q);cancelIf(isCancelled);attempts++;if(!blob||!blob.size)throw new Error('This browser could not encode the image. Try a smaller size.');if(blob.type!==o.type)throw new Error(FORMATS[o.type].name+' export is not supported by this browser. Choose another format.');return {blob,quality:lossy?q:null,w,h};}
+  function finish(v){return {...v,met:!target||v.blob.size<=target,target,attempts,shrunk:v.w<initial.w||v.h<initial.h};}
+  for(let pass=0;pass<20;pass++){
+   let top=await run(high);if(!target||top.blob.size<=target)return finish(top);
+   let low=lossy?await run(.1):top;last=low;
+   if(lossy&&low.blob.size<=target){let best=low,lo=.1,hi=high;for(let i=0;i<7;i++){const q=(lo+hi)/2,trial=await run(q);if(trial.blob.size<=target){best=trial;lo=q;}else hi=q;}return finish(best);}
+   if(!o.downscale||(w===1&&h===1))return finish(low);
+   const factor=Math.min(.9,Math.max(.25,Math.sqrt(target/low.blob.size)*.94));
+   const nw=Math.max(1,Math.floor(w*factor)),nh=Math.max(1,Math.floor(h*factor));
+   if(nw===w&&nh===h)return finish(low);w=nw;h=nh;
+  }
+  return finish(last);
+ }
+ function inspectImage(buffer){
+  const a=new Uint8Array(buffer),v=new DataView(buffer),ascii=(i,n)=>String.fromCharCode(...a.subarray(i,i+n));
+  let type=null,w=null,h=null,animated=false;
+  if(a.length>=24&&a[0]===137&&ascii(1,3)==='PNG'&&a[4]===13&&a[5]===10&&a[6]===26&&a[7]===10){
+   type='image/png';w=v.getUint32(16);h=v.getUint32(20);
+   for(let p=8;p+12<=a.length;){const len=v.getUint32(p),tag=ascii(p+4,4);if(len>a.length-p-12)throw new Error('The PNG file is incomplete.');if(tag==='acTL')animated=true;if(tag==='IEND')break;p+=len+12;}
+  }else if(a.length>=12&&ascii(0,4)==='RIFF'&&ascii(8,4)==='WEBP'){
+   type='image/webp';for(let p=12;p+8<=a.length;){const len=v.getUint32(p+4,true),tag=ascii(p,4);if(len>a.length-p-8)throw new Error('The WebP file is incomplete.');if(tag==='ANIM'||tag==='ANMF'||(tag==='VP8X'&&len>=1&&(a[p+8]&2)))animated=true;p+=8+len+(len%2);}
+  }else if(a.length>=4&&a[0]===255&&a[1]===216&&a[2]===255){
+   type='image/jpeg';let p=2;const sof=new Set([192,193,194,195,197,198,199,201,202,203,205,206,207]);
+   while(p+4<a.length){if(a[p]!==255){p++;continue;}while(a[p]===255)p++;const marker=a[p++];if(marker===218||marker===217)break;if(marker===1||(marker>=208&&marker<=215))continue;if(p+2>a.length)break;const len=v.getUint16(p);if(len<2||p+len>a.length)break;if(sof.has(marker)&&len>=7){h=v.getUint16(p+3);w=v.getUint16(p+5);break;}p+=len;}
+  }
+  if(!type)throw new Error('Use a JPG, PNG, or still WebP image.');
+  if(animated)throw new Error('Animated images are not supported. Choose a still image.');
+  if(w!==null&&(!w||!h||w*h>MAX_INPUT_PIXELS))throw new Error('This image exceeds the 64 megapixel input limit.');
+  return {type,w,h};
+ }
+ function outputNames(items,type){
+  const used=new Set(),ext=FORMATS[type].ext;
+  return items.map(item=>{let base=String(item.name||'photo').normalize('NFC').replace(/\.[^.]+$/,'').replace(/[<>:"/\\|?*\u0000-\u001f\u007f]/g,'-').replace(/[. ]+$/g,'').trim();base=Array.from(base).slice(0,100).join('')||'photo';if(/^(con|prn|aux|nul|com[1-9]|lpt[1-9])$/i.test(base))base='photo-'+base;const stem=base+'-photofit';let name=stem+'.'+ext,n=2;while(used.has(name.toLocaleLowerCase()))name=stem+'-'+n+++'.'+ext;used.add(name.toLocaleLowerCase());return name;});
+ }
+ const crcTable=Array.from({length:256},(_,i)=>{let c=i;for(let j=0;j<8;j++)c=c&1?0xedb88320^(c>>>1):c>>>1;return c>>>0;});
+ function crc32(a){let c=0xffffffff;for(const b of a)c=crcTable[(c^b)&255]^(c>>>8);return (c^0xffffffff)>>>0;}
+ async function zip(files,onProgress=()=>{}){
+  if(!files.length)throw new Error('There are no finished images to save.');
+  if(files.length>65535||files.reduce((s,f)=>s+f.blob.size,0)>MAX_ZIP_BYTES)throw new Error('This ZIP would exceed 250 MB. Save images individually or use a smaller batch.');
+  let offset=0;const parts=[],central=[],encoder=new TextEncoder(),now=new Date(),year=clamp(now.getFullYear(),1980,2107);
+  const time=(now.getHours()<<11)|(now.getMinutes()<<5)|(now.getSeconds()>>1),date=((year-1980)<<9)|((now.getMonth()+1)<<5)|now.getDate();
+  for(let i=0;i<files.length;i++){
+   const f=files[i],name=encoder.encode(f.name),data=new Uint8Array(await f.blob.arrayBuffer()),crc=crc32(data),head=new Uint8Array(30+name.length),dv=new DataView(head.buffer);
+   dv.setUint32(0,0x04034b50,true);dv.setUint16(4,20,true);dv.setUint16(6,0x800,true);dv.setUint16(10,time,true);dv.setUint16(12,date,true);dv.setUint32(14,crc,true);dv.setUint32(18,data.length,true);dv.setUint32(22,data.length,true);dv.setUint16(26,name.length,true);head.set(name,30);parts.push(head,data);
+   const cd=new Uint8Array(46+name.length),cv=new DataView(cd.buffer);cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);cv.setUint16(8,0x800,true);cv.setUint16(12,time,true);cv.setUint16(14,date,true);cv.setUint32(16,crc,true);cv.setUint32(20,data.length,true);cv.setUint32(24,data.length,true);cv.setUint16(28,name.length,true);cv.setUint32(42,offset,true);cd.set(name,46);central.push(cd);offset+=head.length+data.length;onProgress(i+1,files.length);
+  }
+  const centralSize=central.reduce((s,v)=>s+v.length,0),end=new Uint8Array(22),ev=new DataView(end.buffer);ev.setUint32(0,0x06054b50,true);ev.setUint16(8,files.length,true);ev.setUint16(10,files.length,true);ev.setUint32(12,centralSize,true);ev.setUint32(16,offset,true);return new Blob([...parts,...central,end],{type:'application/zip'});
+ }
+ return {MAX_EDGE,MAX_PIXELS,MAX_INPUT_PIXELS,MAX_FILE_BYTES,MAX_ZIP_BYTES,FORMATS,clamp,bytes,normalizeRotation,orientedSize,rect,rotateCrop,centeredCrop,resizeCrop,validateOptions,dimensions,draw,optimize,inspectImage,outputNames,crc32,zip};
+})();
+
+</script>
+<script id="photofit-ui">
+'use strict';
+(()=>{
+ const C=globalThis.PhotoFitCore,$=id=>document.getElementById(id),all=s=>Array.from(document.querySelectorAll(s));
+ const state={items:[],active:null,format:'image/jpeg',target:'200',busy:null,cancel:false,webp:false,crop:null};
+ let nextId=1,originalURL=null,originalId=null,toastTimer=null;
+ const active=()=>state.items.find(x=>x.id===state.active),ready=()=>state.items.filter(x=>x.result),pending=()=>state.items.filter(x=>!x.result);
+ const icon=name=>'<svg class="icon" aria-hidden="true"><use href="#i-'+name+'"/></svg>';
+ function showToast(message){$('toastText').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,6500);}
+ function releaseResult(item){if(item.result?.url)URL.revokeObjectURL(item.result.url);item.result=null;item.status='idle';item.error='';}
+ function invalidate(item=null){(item?[item]:state.items).forEach(releaseResult);render();}
+ function readOptions(){
+  let targetKB=state.target==='custom'?Number($('customTarget').value):Number(state.target);
+  if(state.target==='custom'&&(!$('customTarget').value.trim()||targetKB<1))throw new Error('Enter a file-size limit of at least 1 KB.');
+  return C.validateOptions({type:state.format,targetKB,downscale:$('allowDownscale').checked,mode:$('resizeMode').value,dimension:Number($('dimensionValue').value),width:Number($('boxWidth').value),height:Number($('boxHeight').value),upscale:$('allowUpscale').checked,quality:Number($('quality').value)/100,background:$('background').value});
+ }
+ function syncSettings(){
+  all('[data-format]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.format===state.format)));
+  all('[data-target]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.target===state.target)));
+  $('customTargetWrap').hidden=state.target!=='custom';$('downscaleWrap').hidden=state.target==='0';
+  $('singleDimension').hidden=['original','box'].includes($('resizeMode').value);$('boxDimensions').hidden=$('resizeMode').value!=='box';$('upscaleWrap').hidden=$('resizeMode').value==='original';
+  $('backgroundField').hidden=state.format!=='image/jpeg';$('qualityField').hidden=state.format==='image/png';
+  const auto=state.target!=='0';$('quality').disabled=auto;$('qualityValue').textContent=auto?'Auto':$('quality').value+'%';$('qualityAuto').hidden=!auto;
+  $('formatHelp').textContent=state.format==='image/jpeg'?'Small files for photos. Uses a solid background.':state.format==='image/png'?'Lossless output. Keeps transparent areas.':'Compact photos with transparency support.';
+ }
+ function renderControls(){
+  syncSettings();$('settingsFields').disabled=Boolean(state.busy);$('webpButton').disabled=!state.webp;
+  let valid=true;try{readOptions();$('settingsError').hidden=true;}catch(e){valid=false;$('settingsError').textContent=e.message;$('settingsError').hidden=false;}
+  const count=pending().length;
+  $('processButton').disabled=Boolean(state.busy)||!state.items.length||!count||!valid;
+  $('processText').textContent=state.busy==='reading'?'Reading photos…':state.busy==='processing'?'Processing…':!state.items.length?'Add photos to start':!count?'All photos processed':'Process '+count+' photo'+(count===1?'':'s');
+  $('dropZone').setAttribute('aria-disabled',String(Boolean(state.busy)));$('fileInput').disabled=Boolean(state.busy);
+  ['clearButton','cropButton','rotateLeft','rotateRight','resetEdits'].forEach(id=>$(id).disabled=Boolean(state.busy)||!active());
+  $('saveOne').disabled=Boolean(state.busy)||!active()?.result;$('saveAll').disabled=Boolean(state.busy)||!ready().length;
+  $('saveAllText').textContent=state.busy==='saving'?'Preparing ZIP…':ready().length?'Save '+ready().length+' image'+(ready().length===1?'':'s')+' as ZIP':'Save batch as ZIP';
+  $('cancelButton').disabled=state.cancel;$('progressLine').hidden=state.busy!=='processing';
+ }
+ function renderList(){
+  const focus=document.activeElement?.dataset?.selectId;
+  $('imageList').replaceChildren();
+  for(const item of state.items){
+   const card=document.createElement('div');card.className='image-item'+(item.id===state.active?' selected':'');
+   const choose=document.createElement('button');choose.className='image-choice';choose.dataset.selectId=String(item.id);choose.setAttribute('aria-label','Preview '+item.file.name);choose.setAttribute('aria-pressed',String(item.id===state.active));
+   const img=document.createElement('img');img.src=item.thumb;img.alt='';choose.append(img);
+   const name=document.createElement('span');name.className='name';name.textContent=item.file.name;name.title=item.file.name;choose.append(name);
+   choose.addEventListener('click',()=>{state.active=item.id;render();});
+   const status=document.createElement('span');status.className='item-state';
+   if(item.result){status.textContent=C.bytes(item.result.blob.size)+(item.result.met?' · Ready':' · Over limit');status.classList.add(item.result.met?'good':'warn');}
+   else if(item.status==='processing')status.textContent='Processing…';
+   else if(item.status==='error'){status.textContent='Could not process';status.classList.add('error');status.title=item.error;}
+   else status.textContent='Ready to process';
+   const remove=document.createElement('button');remove.className='remove-image';remove.innerHTML=icon('close');remove.disabled=Boolean(state.busy);remove.setAttribute('aria-label','Remove '+item.file.name);remove.addEventListener('click',()=>removeItem(item.id));
+   card.append(choose,status,remove);$('imageList').append(card);
+  }
+  if(focus)all('[data-select-id]').find(b=>b.dataset.selectId===focus)?.focus({preventScroll:true});
+ }
+ function renderPreview(){
+  const item=active();$('emptyState').hidden=Boolean(item);$('compareArea').hidden=!item;$('editTools').hidden=!item;
+  if(!item){$('activeName').textContent='Your photo workspace';$('activeSub').textContent='Your originals stay untouched.';if(originalURL)URL.revokeObjectURL(originalURL);originalURL=null;originalId=null;$('originalPreview').removeAttribute('src');$('resultPreview').removeAttribute('src');return;}
+  $('activeName').textContent=item.file.name;$('activeName').title=item.file.name;
+  $('activeSub').textContent='Crop '+item.edit.crop.w.toLocaleString()+' × '+item.edit.crop.h.toLocaleString()+' px'+(item.edit.rotation?' · rotated '+item.edit.rotation+'°':'');
+  if(originalId!==item.id){if(originalURL)URL.revokeObjectURL(originalURL);originalURL=URL.createObjectURL(item.file);originalId=item.id;$('originalPreview').src=originalURL;}
+  $('originalType').textContent=C.FORMATS[item.type].name;$('originalSize').textContent=C.bytes(item.file.size);$('originalDimensions').textContent=item.w.toLocaleString()+' × '+item.h.toLocaleString()+' px';
+  const r=item.result;$('resultPreview').hidden=!r;$('resultPlaceholder').hidden=Boolean(r);$('resultNote').hidden=!r;
+  if(r){
+   $('resultPreview').src=r.url;$('resultSize').textContent=C.bytes(r.blob.size);$('resultDimensions').textContent=r.w.toLocaleString()+' × '+r.h.toLocaleString()+' px · '+C.FORMATS[r.blob.type].name;
+   $('resultBadge').textContent=r.target?(r.met?'Within limit':'Over limit'):'Ready';$('resultBadge').className='label-chip '+(r.met?'good':'warn');
+   const change=Math.round((1-r.blob.size/item.file.size)*100),notes=[];
+   notes.push(change>=0?change+'% smaller than original.':Math.abs(change)+'% larger than original.');
+   if(r.limited)notes.push('Dimensions reduced to the export safety limit.');
+   if(r.shrunk)notes.push('Dimensions reduced to meet the file-size limit.');
+   if(!r.met)notes.push('Over your '+C.bytes(r.target)+' limit. Allow smaller dimensions or try another format.');
+   $('resultNote').textContent=notes.join(' ');$('resultNote').className='result-note'+(!r.met?' warning':'');
+  }else{
+   $('resultPreview').removeAttribute('src');$('resultSize').textContent='-';$('resultDimensions').textContent='Your result will appear here';$('resultBadge').textContent=item.status==='processing'?'Processing':item.status==='error'?'Try again':'Not processed';$('resultBadge').className='label-chip';
+   $('placeholderText').textContent=item.status==='processing'?'Finding the right fit…':item.error||'Choose your settings, then process your photos.';
+  }
+ }
+ function render(){
+  $('batchSection').hidden=!state.items.length;$('batchCount').textContent='('+state.items.length+'/50)';
+  const done=ready(),over=done.filter(i=>!i.result.met).length,total=done.reduce((s,i)=>s+i.result.blob.size,0);
+  $('batchSummary').textContent=state.busy==='reading'?'Reading your photos…':state.busy==='processing'?'Processing '+done.length+' of '+state.items.length+'…':done.length?done.length+' of '+state.items.length+' ready · '+C.bytes(total)+(over?' · '+over+' over limit':''):'Select a photo to crop or rotate it.';
+  renderList();renderPreview();renderControls();
+ }
+ async function decode(file){
+  if(typeof createImageBitmap==='function'){try{return await createImageBitmap(file,{imageOrientation:'from-image'});}catch{}}
+  const url=URL.createObjectURL(file),img=new Image();
+  try{await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=()=>reject(new Error('This browser could not read the image. It may be damaged or unsupported.'));img.src=url;});img.close=()=>{img.src='';URL.revokeObjectURL(url);};return img;}catch(e){URL.revokeObjectURL(url);throw e;}
+ }
+ function canvasBlob(canvas,type,quality){return new Promise((resolve,reject)=>{try{canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('The image could not be exported. Try smaller dimensions.')),type,quality);}catch(e){reject(e);}});}
+ async function addFiles(files){
+  if(state.busy){showToast('Finish the current operation before adding more photos.');return;}
+  files=Array.from(files);if(!files.length)return;state.busy='reading';$('uploadNotice').hidden=true;render();const errors=[];
+  try{
+   for(const file of files){
+    if(state.items.length>=50){errors.push('Batch limit reached. Add up to 50 photos at a time.');break;}
+    let image=null,canvas=null;
+    try{
+     if(!file.size)throw new Error('This file is empty.');if(file.size>C.MAX_FILE_BYTES)throw new Error('This file is larger than 50 MB.');
+     const meta=C.inspectImage(await file.arrayBuffer());image=await decode(file);
+     if(!image.width||!image.height||image.width*image.height>C.MAX_INPUT_PIXELS)throw new Error('This image exceeds the 64 megapixel input limit.');
+     const scale=Math.min(1,240/image.width,160/image.height);canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(image.width*scale));canvas.height=Math.max(1,Math.round(image.height*scale));
+     C.draw(canvas.getContext('2d'),image,{rotation:0,crop:{x:0,y:0,w:image.width,h:image.height}},canvas.width,canvas.height,'#f5f4f8');
+     const thumb=URL.createObjectURL(await canvasBlob(canvas,'image/jpeg',.7));
+     const item={id:nextId++,file,type:meta.type,w:image.width,h:image.height,thumb,edit:{rotation:0,crop:{x:0,y:0,w:image.width,h:image.height}},status:'idle',error:'',result:null};
+     state.items.push(item);if(!state.active)state.active=item.id;render();
+    }catch(e){errors.push(file.name+': '+e.message);}finally{image?.close?.();if(canvas){canvas.width=1;canvas.height=1;}}
+   }
+  }finally{state.busy=null;if(errors.length){$('uploadNotice').textContent=errors.slice(0,6).join('\n')+(errors.length>6?'\nAnd '+(errors.length-6)+' more files could not be added.':'');$('uploadNotice').hidden=false;}render();}
+ }
+ function removeItem(id){if(state.busy)return;const i=state.items.findIndex(x=>x.id===id);if(i<0)return;const [item]=state.items.splice(i,1);releaseResult(item);URL.revokeObjectURL(item.thumb);if(state.active===id)state.active=state.items[Math.min(i,state.items.length-1)]?.id??null;render();}
+ function clearBatch(){if(state.busy)return;for(const item of state.items){releaseResult(item);URL.revokeObjectURL(item.thumb);}state.items=[];state.active=null;$('uploadNotice').hidden=true;render();}
+ async function processImages(){
+  if(state.busy||!pending().length)return;let options;try{options=readOptions();}catch(e){showToast(e.message);return;}
+  const todo=pending();state.busy='processing';state.cancel=false;$('batchProgress').max=todo.length;$('batchProgress').value=0;render();
+  try{
+   for(let i=0;i<todo.length;i++){
+    if(state.cancel)break;const item=todo[i];item.status='processing';item.error='';render();let image=null,canvas=null;
+    try{
+     image=await decode(item.file);const plan=C.dimensions(item.edit.crop.w,item.edit.crop.h,options);canvas=document.createElement('canvas');let renderedW=0,renderedH=0;
+     const result=await C.optimize(plan.w,plan.h,options,async(w,h,q)=>{
+      if(w!==renderedW||h!==renderedH){canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Canvas is unavailable. Try a smaller image.');C.draw(ctx,image,item.edit,w,h,options.type==='image/jpeg'?options.background:null);renderedW=w;renderedH=h;}
+      return canvasBlob(canvas,options.type,q);
+     },()=>state.cancel);
+     item.result={...result,limited:plan.limited,url:URL.createObjectURL(result.blob)};item.status='done';
+    }catch(e){if(e.name==='AbortError'){item.status='idle';break;}item.status='error';item.error=e.message||'The image could not be processed.';}
+    finally{image?.close?.();if(canvas){canvas.width=1;canvas.height=1;}}
+    $('batchProgress').value=i+1;render();
+   }
+  }finally{const stopped=state.cancel;state.busy=null;state.cancel=false;render();const failed=state.items.filter(i=>i.status==='error').length;showToast(stopped?'Stopped. Finished images are ready to save.':failed?'Finished with '+failed+' error'+(failed===1?'':'s')+'. Select an affected photo for details.':ready().length+' photo'+(ready().length===1?' is':'s are')+' ready. Check the preview, then save.');}
+ }
+ function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.style.display='none';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
+ function names(){return C.outputNames(state.items.map(i=>({name:i.file.name})),state.format);}
+ function saveOne(){const item=active();if(state.busy||!item?.result)return;download(item.result.blob,names()[state.items.indexOf(item)]);showToast('Download requested'+(item.result.met?'.':' - this image is over your size limit.')+' Check your browser’s downloads.');}
+ async function saveAll(){
+  if(state.busy||!ready().length)return;state.busy='saving';render();
+  try{const outputNames=names(),files=state.items.flatMap((item,i)=>item.result?[{name:outputNames[i],blob:item.result.blob}]:[]);const blob=await C.zip(files,(n,total)=>$('batchSummary').textContent='Preparing ZIP '+n+' of '+total+'…');download(blob,'PhotoFit-images.zip');showToast('ZIP download requested. Check your browser’s downloads.');}
+  catch(e){showToast(e.message);}finally{state.busy=null;render();}
+ }
+ function rotate(delta){if(state.busy||!active())return;const item=active(),size=C.orientedSize(item.w,item.h,item.edit.rotation);item.edit.crop=C.rotateCrop(item.edit.crop,size.w,size.h,delta);item.edit.rotation=C.normalizeRotation(item.edit.rotation+delta);invalidate(item);}
+ function resetEdits(){if(state.busy||!active())return;const item=active();item.edit={rotation:0,crop:{x:0,y:0,w:item.w,h:item.h}};invalidate(item);}
+ async function openCrop(){
+  if(state.busy||!active())return;const item=active();state.busy='crop-loading';renderControls();let image=null;
+  try{image=await decode(item.file);const bounds=C.orientedSize(item.w,item.h,item.edit.rotation),scale=Math.min(1,750/bounds.w,480/bounds.h),canvas=$('cropCanvas');canvas.width=Math.max(1,Math.round(bounds.w*scale));canvas.height=Math.max(1,Math.round(bounds.h*scale));$('cropStage').style.width=canvas.width+'px';C.draw(canvas.getContext('2d'),image,{rotation:item.edit.rotation,crop:{x:0,y:0,w:bounds.w,h:bounds.h}},canvas.width,canvas.height);state.crop={id:item.id,bounds,rect:{...item.edit.crop},ratio:0,drag:null};$('cropRatio').value='0';updateCrop();$('cropDialog').showModal();}
+  catch(e){showToast(e.message);}finally{image?.close?.();state.busy=null;renderControls();}
+ }
+ function updateCrop(){
+  const c=state.crop;if(!c)return;const r=c.rect,b=c.bounds;$('cropBox').style.left=r.x/b.w*100+'%';$('cropBox').style.top=r.y/b.h*100+'%';$('cropBox').style.width=r.w/b.w*100+'%';$('cropBox').style.height=r.h/b.h*100+'%';
+  for(const [id,key]of [['cropX','x'],['cropY','y'],['cropW','w'],['cropH','h']])$(id).value=r[key];$('cropX').max=b.w-r.w;$('cropY').max=b.h-r.h;$('cropW').max=b.w-r.x;$('cropH').max=b.h-r.y;
+ }
+ function cropPoint(e){const b=$('cropStage').getBoundingClientRect();return {x:(e.clientX-b.left)/b.width*state.crop.bounds.w,y:(e.clientY-b.top)/b.height*state.crop.bounds.h};}
+ $('cropStage').addEventListener('pointerdown',e=>{if(!state.crop||!e.target.closest('.crop-box'))return;e.preventDefault();const p=cropPoint(e);state.crop.drag={pointer:e.pointerId,corner:e.target.closest('[data-corner]')?.dataset.corner,start:{...state.crop.rect},p};$('cropStage').setPointerCapture(e.pointerId);});
+ $('cropStage').addEventListener('pointermove',e=>{const c=state.crop,d=c?.drag;if(!d||d.pointer!==e.pointerId)return;e.preventDefault();const p=cropPoint(e);c.rect=d.corner?C.resizeCrop(d.corner,d.start,p,c.bounds,c.ratio):{...d.start,x:C.clamp(Math.round(d.start.x+p.x-d.p.x),0,c.bounds.w-d.start.w),y:C.clamp(Math.round(d.start.y+p.y-d.p.y),0,c.bounds.h-d.start.h)};updateCrop();});
+ function endDrag(e){if(state.crop?.drag?.pointer===e.pointerId){state.crop.drag=null;if($('cropStage').hasPointerCapture(e.pointerId))$('cropStage').releasePointerCapture(e.pointerId);}}
+ $('cropStage').addEventListener('pointerup',endDrag);$('cropStage').addEventListener('pointercancel',endDrag);
+ $('cropRatio').addEventListener('change',()=>{if(!state.crop)return;state.crop.ratio=Number($('cropRatio').value);state.crop.rect=C.centeredCrop(state.crop.bounds.w,state.crop.bounds.h,state.crop.ratio);updateCrop();});
+ for(const id of ['cropX','cropY','cropW','cropH'])$(id).addEventListener('change',()=>{
+  const c=state.crop;if(!c)return;const b=c.bounds,r={...c.rect},n=Number($(id).value);if(!Number.isFinite(n)){updateCrop();return;}
+  if(id==='cropX')r.x=C.clamp(Math.round(n),0,b.w-r.w);if(id==='cropY')r.y=C.clamp(Math.round(n),0,b.h-r.h);
+  if(id==='cropW'){r.w=C.clamp(Math.round(n),1,b.w-r.x);if(c.ratio)r.h=r.w/c.ratio;}
+  if(id==='cropH'){r.h=C.clamp(Math.round(n),1,b.h-r.y);if(c.ratio)r.w=r.h*c.ratio;}
+  if(c.ratio&&(id==='cropW'||id==='cropH')){const scale=Math.min(1,(b.w-r.x)/r.w,(b.h-r.y)/r.h);r.w*=scale;r.h*=scale;}
+  c.rect=C.rect(r,b.w,b.h);updateCrop();
+ });
+ $('cropReset').addEventListener('click',()=>{if(!state.crop)return;state.crop.rect=C.centeredCrop(state.crop.bounds.w,state.crop.bounds.h,0);state.crop.ratio=0;$('cropRatio').value='0';updateCrop();});
+ $('cropApply').addEventListener('click',()=>{const c=state.crop;if(!c)return;const item=state.items.find(i=>i.id===c.id);if(item){item.edit.crop=C.rect(c.rect,c.bounds.w,c.bounds.h);invalidate(item);}$('cropDialog').close();});
+ $('cropDialog').addEventListener('close',()=>{state.crop=null;$('cropCanvas').width=1;$('cropCanvas').height=1;});
+ all('[data-format]').forEach(b=>b.addEventListener('click',()=>{if(state.busy||b.disabled||state.format===b.dataset.format)return;state.format=b.dataset.format;invalidate();}));
+ all('[data-target]').forEach(b=>b.addEventListener('click',()=>{if(state.busy||state.target===b.dataset.target)return;state.target=b.dataset.target;invalidate();}));
+ ['customTarget','allowDownscale','resizeMode','dimensionValue','boxWidth','boxHeight','allowUpscale','quality','background'].forEach(id=>$(id).addEventListener('input',()=>{if(!state.busy)invalidate();}));
+ $('dropZone').addEventListener('click',()=>{if(!state.busy)$('fileInput').click();});$('dropZone').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();if(!state.busy)$('fileInput').click();}});
+ $('fileInput').addEventListener('change',e=>{const files=Array.from(e.target.files);e.target.value='';addFiles(files);});
+ for(const event of ['dragenter','dragover'])$('dropZone').addEventListener(event,e=>{e.preventDefault();if(!state.busy)$('dropZone').classList.add('dragover');});
+ for(const event of ['dragleave','drop'])$('dropZone').addEventListener(event,e=>{e.preventDefault();$('dropZone').classList.remove('dragover');if(event==='drop')addFiles(e.dataTransfer.files);});
+ window.addEventListener('dragover',e=>{if(Array.from(e.dataTransfer?.types||[]).includes('Files'))e.preventDefault();});window.addEventListener('drop',e=>{if(e.dataTransfer?.files.length)e.preventDefault();});
+ document.addEventListener('paste',e=>{if(document.querySelector('dialog[open]'))return;const files=Array.from(e.clipboardData?.files||[]);if(files.length){e.preventDefault();addFiles(files);}});
+ $('processButton').addEventListener('click',processImages);$('cancelButton').addEventListener('click',()=>{state.cancel=true;$('cancelButton').disabled=true;});$('saveOne').addEventListener('click',saveOne);$('saveAll').addEventListener('click',saveAll);
+ $('rotateLeft').addEventListener('click',()=>rotate(-90));$('rotateRight').addEventListener('click',()=>rotate(90));$('resetEdits').addEventListener('click',resetEdits);$('cropButton').addEventListener('click',openCrop);
+ $('helpButton').addEventListener('click',()=>$('helpDialog').showModal());all('[data-close]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.close).close()));
+ $('clearButton').addEventListener('click',()=>{if(!state.busy&&state.items.length)$('clearDialog').showModal();});$('confirmClear').addEventListener('click',()=>{clearBatch();$('clearDialog').close();});$('dismissToast').addEventListener('click',()=>$('toast').hidden=true);
+ try{const probe=document.createElement('canvas');probe.width=2;probe.height=2;state.webp=probe.toDataURL('image/webp').startsWith('data:image/webp');probe.width=1;probe.height=1;}catch{state.webp=false;}
+ if(!state.webp)$('webpButton').title='This browser does not support WebP export. JPG and PNG are available.';
+ render();
+ globalThis.PhotoFitApp={state,addFiles,processImages,readOptions,removeItem,clearBatch,saveAll,saveOne,rotate,openCrop,render};
+})();
+
+</script>
+</body>
+</html>
